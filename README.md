@@ -2,18 +2,18 @@
 
 ## Overview
 
-This project aims to implement and compare different language models (FFNN, RNN, LSTM) for next-word prediction. The models will be trained on two datasets:
+This project implements and compares different language models (FFNN, RNN, LSTM) for next-word prediction. The models are trained on two datasets:
 
 - **Pride and Prejudice**
 - **Ulysses**
 
-Each model will be evaluated based on perplexity and generalization performance.
+Each model is evaluated based on perplexity and generalization performance.
 
 ## Project Structure
 
 ```
 📂 Project Root
-│── generator.ipynb  
+│── generator.ipynb  # Loads the required model and predicts the next word
 │── FFNN_pp.ipynb    # Trains FFNN model on Pride and Prejudice (n=3,5)
 │── FFNN_u.ipynb     # Trains FFNN model on Ulysses (n=3,5)
 │── lstmpp.ipynb    # Trains LSTM model on Pride and Prejudice
@@ -37,6 +37,11 @@ Each model will be evaluated based on perplexity and generalization performance.
   - Optimizer: Adam
   - Loss: Cross-entropy loss
 
+#### **Observations:**
+
+- **FFNN (n=3) on Ulysses is overfitting**, requiring regularization techniques.
+- **Perplexity: FFNN > RNN > LSTM**
+
 ---
 
 ### **Recurrent Neural Network (RNN)**
@@ -51,6 +56,11 @@ Each model will be evaluated based on perplexity and generalization performance.
   - Optimizer: Adam
   - Loss: Cross-entropy loss
 
+#### **Observations:**
+
+- Performs better than FFNN but worse than LSTM in perplexity.
+- More stable than FFNN on Ulysses dataset.
+
 ---
 
 ### **Long Short-Term Memory (LSTM)**
@@ -64,6 +74,11 @@ Each model will be evaluated based on perplexity and generalization performance.
 - Training:
   - Optimizer: Adam
   - Loss: Cross-entropy loss
+
+#### **Observations:**
+
+- **Best performance in terms of perplexity**
+- **LSTM on Ulysses overfits**, indicating a need for dropout and regularization.
 
 ---
 
@@ -83,3 +98,58 @@ Each model will be evaluated based on perplexity and generalization performance.
    <!-- Link to google drive saved models -->
    model = torch.load(model_path, map_location=torch.device('cpu'))
    ```
+
+## **Screenshots of Results**
+
+### FFNN N=3 Pride and prejudice
+
+![alt text](assets/image.png)
+
+### FFNN N=5 Pride and prejudice
+
+![alt text](assets/image-1.png)
+
+### FFNN N=3 Ulysses
+
+![alt text](assets/image-2.png)
+
+### FFNN N=5 Ulysses
+
+![alt text](assets/image-3.png)
+
+### RNN Pride and Prejudice
+
+![alt text](assets/image-4.png)
+![alt text](assets/image-8.jpeg)
+
+### RNN Ulysses
+
+![alt text](assets/image-5.png)
+![alt text](assets/image-9.jpeg)
+
+### LSTM Pride and Prejudice
+
+![alt text](assets/image-6.png)
+![alt text](assets/image-10.jpeg)
+
+### LSTM Ulysses
+
+![alt text](assets/image-7.png)
+![alt text](assets/image-11.jpeg)
+
+---
+
+## **Observation:**
+
+> - **Perplexity: FFNN > RNN > LSTM**
+> - **Pride and Prejudice has lower perplexity than Ulysses.**
+> - **LSTM on Ulysses and FFNN (n=3) on Ulysses show overfitting.**
+
+---
+
+## **Conclusion**
+
+- **LSTM performs best in terms of perplexity.**
+- **RNN provides a balance between performance and complexity.**
+- **FFNN struggles with generalization, especially for Ulysses.**
+- **Regularization needed for LSTM on Ulysses and FFNN (n=3) on Ulysses.**
